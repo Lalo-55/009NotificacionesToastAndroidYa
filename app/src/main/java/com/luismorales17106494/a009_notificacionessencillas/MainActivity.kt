@@ -2,6 +2,9 @@ package com.luismorales17106494.a009_notificacionessencillas
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import com.luismorales17106494.a009_notificacionessencillas.databinding.ActivityMainBinding
+
 /*
 9 - Notificaciones sencillas mediante la clase Toast
 
@@ -21,8 +24,31 @@ informar si acertó o no.
  */
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val numRandom = (Math.random() * 100).toInt()
+        Toast.makeText(this, numRandom.toString(), Toast.LENGTH_LONG).show()
+
+
+        binding.btVerificar.setOnClickListener() {
+            if (binding.editTextNumber.text.isNotBlank()) {
+
+                if (numRandom == binding.editTextNumber.text.toString().toInt()) {
+                    Toast.makeText(this, "Has acertado", Toast.LENGTH_LONG).show()
+
+                } else {
+                    Toast.makeText(this, "No has acertado \nEl número es $numRandom", Toast.LENGTH_LONG).show()
+                }
+
+            } else {
+                Toast.makeText(this, "Ingrese un número", Toast.LENGTH_LONG).show()
+            }
+        }
+
+
     }
 }
